@@ -1,0 +1,550 @@
+\documentclass{article}
+\usepackage[a4paper,hmargin=1.25in,vmargin=1in]{geometry}
+
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{amsmath}
+
+\definecolor{DarkGreen}{rgb}{0.0,0.4,0.0}
+\definecolor{highlight}{RGB}{255,251,204}
+
+\lstdefinestyle{Style1}{
+language=CPP, 
+backgroundcolor=\color{highlight}, 
+basicstyle=\footnotesize\ttfamily,
+breakatwhitespace=false,
+breaklines=true,
+captionpos=b,
+commentstyle=\usefont{T1}{pcr}{m}{sl}\color{DarkGreen},
+deletekeywords={},
+%escapeinside={\%}, % This allows you to escape to LaTeX using the character in the bracket
+firstnumber=1,
+frame=single,
+frameround=tttt,
+keywordstyle=\color{Blue}\bf,
+morekeywords={},
+numbers=left,
+numbersep=10pt,
+numberstyle=\tiny\color{Gray},
+rulecolor=\color{black},
+showstringspaces=false,
+showtabs=false,
+stepnumber=1,
+stringstyle=\color{Purple},
+tabsize=2,
+}
+
+\newcommand{\insertcode}[2]{\begin{itemize}\item[]\lstinputlisting[caption=#2,label=#1,style=Style1]{#1}\end{itemize}}
+
+
+\begin{document}
+
+\section {Recurrent Problems}
+\subsection{THE TOWER OF HANOI}
+$T_n$ is the minimum number of steps that can move n disks from one peg to another.
+
+\subsubsection{Three Towers}
+There are three towers A, B and C.
+At the begining all disks are on A, and C is the target.
+Move top n-1 from A to B ($T_{n-1}$), move the last one from A to C, move n-1 from B to C.
+\begin{align}
+T_0 & = 0; \\ 
+T_n & = 2T_{n-1}. && \{n \ge 1\}
+\end{align}
+Then combine these two:
+\begin{align}
+T_n = 2^n-1. && \{n\ge 0\}
+\end{align}
+
+\subsection{Lines In The Plane}
+$L_n$ is the maximum region number defined by n lines in the plane.
+The nth line at most crosses n-1 lines if not parallels to any other lines.
+The nth line at most splits n new spaces if not goes through any existing intersection point.
+\begin{align}
+L_0 & = 1;\\
+L_n & = L_{n-1} + n. && \{n \ge 1\}
+\end{align}
+Then combine these two:
+\begin{align}
+L_n = \frac {1}{2}n(n+1) + 1. && \{n \ge 0\}
+\end{align}
+
+\subsubsection{Zig Lines}
+$Z_n$ is the maximum region number defined by n zig lines in the plane.
+The nth zig line corresponds to the 2nth line in the last problems.
+Each zig line generates 2 less spaces than 2 lines.
+\begin{align}
+Z_n = L_{2n} - 2n. && \{n \ge 0\}
+\end{align}
+Which is:
+\begin{align}
+Z_n = 2n^2-n+1. && \{n\ge 0\}
+\end{align}
+
+\subsection{The Josephus Problem}
+n people numbered 1 to n stand around a circle.
+Every second remaining person are eliminated until only one survives.
+$J(n)$ is the survivor's number.
+Case $2n$: after the first round (1, 2, 3, ..., $2n$) becomes (1, 3, 5, ..., $2n-1$);
+Case $2n+1$: after the first round (1, 2, 3, ..., $2n+1$) becomes (3, 5, ..., $2n+1$);
+In the case $2n$, rename the left n people using the map $(n+1)/2$ to (1, 2, ..., n) and continue play this game.
+In the case $2n+1$, rename the left n people using the map $(n-1)/2$ to (1, 2, ..., n) and continue play this game.
+\begin{align}
+J(1) & = 1;\\
+J(2n) & = 2J(n) - 1; && \{n \ge 1\}\\
+J(2n+1) & = 2J(n) + 1. && \{n \ge 1\}
+\end{align}
+Solution:
+\begin{align}
+J(2^m+l) = 2l+1. && \{m\ge 0 \text{ and } 0 \le l < 2^m\} 
+\end{align}
+
+\subsubsection{Binary Solution}
+Let $n = (1 b_{m - 1} ... b_1 b_0)_2$:
+\begin{align}
+l & = (0 b_{m - 1} b_{m - 2} ... b_1 b_0)_2;\\
+J(n) & = (b_{m - 1} b_{m - 2} ... b_1 b_0 1)_2.
+\end{align}
+Can get $J(n)$ from $n$ with a one-bit cyclic shift left!
+
+\subsubsection{The Repertoire Method}
+For example:
+\begin{align}
+f(1) & = \alpha;\\
+f(2n) & = 2f(n)+\beta; && \{n\ge 1\}\\
+f(2n+1) & = 2f(n)+\gamma. && \{n\ge 1\}
+\end{align}
+Solution should be
+\begin{align}
+f(n) = A(n)\alpha + B(n)\beta + C(n)\gamma
+\end{align}
+Some pairs of $(f(n),\alpha,\beta \gamma)$ are need to solve $A(n)$, $B(n)$ and $C(n)$.\\
+$(1,1,-1,-1)$, $(n,1,0,1)$ and $(2^m,2^m,0,0)$:
+\begin{align}
+1 &= A(n) - B(n) - C(n); && \{n\ge 1\}\\
+n &= A(n) + C(n); && \{n\ge 1\}\\
+A(n) &= 2^m. && \{n \ge 1 \text{ and } 2^m +l = n \text{ and } 0 \le l < 2^m \}
+\end{align}
+I guess this method (the repertoire method) is not used for solving $A(n)$ in this example because the $2^m$ is hard to guess.
+The $A(n)$ is solved by intuition.
+However $B(n)$ and $C(n)$ can be easily solved by the repertoire method.
+
+\subsubsection{Generalized Josephus Recurrence}
+\begin{align}
+f(1) & = \alpha;\\
+f(2n+j) & = 2f(n)+\beta_j. && \{j=0,1 \text{ and } n\ge 1\}
+\end{align}
+Solution is $f((b_m b_{m-1} ...b_1 b_0)_2) = (\alpha \beta_{b_{m-1}} \beta_{b_{m-2}} ...\beta_{b_1} \beta_{b_0})_2$.
+\begin{align}
+f(j) & = \alpha_j; &&\{1\le j<d\}\\
+f(dn+j) & = cf(n)+\beta_j. && \{0\le j<d \text{ and } n\ge 1\}
+\end{align}
+Solution is $f((b_m b_{m-1} ...b_1 b_0)_d) = (\alpha_{b_m} \beta_{b_{m-1}} \beta_{b_{m-2}} ...\beta_{b_1} \beta_{b_0})_c$.
+
+\subsection{Exercises}
+\textbf{Warmups 1.1:} cannot prove the 1st horse and the 2nd one has one same color when $n=2$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 1.2:} move n-1 from A via C to B, move the last one from A to C.
+Move n-1 from B via C to A, move the last one from C to B.
+Move n-1 from A via C to B.
+\begin{align}
+f(1) & = 2;\\
+f(n) & = 3f(n-1)+2. && \{n\ge2\}
+\end{align}
+Solution is $f(n) = 3^n-1$ where $n \ge 1$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 1.3:} the result of \textbf{warmups 1.2} is $3^n-1$, which is the minimal step number.
+The minimal step number means no two arrangements generated by any two different steps are same.
+Then $3^n$ different arrangements have been encountered (plus the begining one).
+There are at most $3^n$ different arrangements in this case, because for each disk there are 3 possible needles. 
+Then all arrangements have been encountered.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 1.4:} prove by induction that from any disk arrangement the minimal step number of moving all disks to one needle (B) is $2^n-1$ when $n\ge 1$.
+
+
+This state is true when $n = 1$.
+
+
+If this state is true when $n = k$ where $k\ge1$, there will be two cases when $n = k+1$.
+Case 1 the max disk is on B.
+Case 2 the max disk is not on B (but on A).
+
+
+In the case 1, the minimal step is $2^{n-1}-1$ when move the rest n-1 disks to B (use the assumption).
+In the case 2, the minimal step is also $2^{n-1}-1+1+2^{n-1}-1 = 2^n-1$ when move rest n-1 disks to C, move the last one to B, move the rest n-1 disk from C to B.
+
+
+Then the state is when $n \ge 1$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 1.5:}
+the nth circle generates $2(n-1)$ new intersection points.
+All points are on the nth circle, and every two connected points create a new area.
+Then $n-1$ new areas are generated.
+\begin{align}
+f(1) & =2;\\
+f(n) & =f(n-1)+2(n-1). && \{n\ge 2\}
+\end{align}
+Solution is $f(n) = n^2-n+2$ where $n \ge 1$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 1.6:}
+the nth line generates n-1 new intersection points.
+These n-1 points creates n-2 bounded areas.
+\begin{align}
+f(3) &= 1;\\
+f(n) &= f(n-1) + n-2. && \{n\ge4\}
+\end{align}
+Solution is $f(n) = \frac{1}{2}(n^2-3n+2)$ where $n\ge 3$. 
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 1.7:}
+the state is false when $n = 1$:
+\begin{align}
+H(1) = J(2) - J(1) = 0.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.8:}
+some small cases shows a loop:
+\begin{align}
+Q_0 &= \alpha;
+Q_1 = \beta;\\
+Q_2 &= \frac{1+\beta}{\alpha};\\
+Q_3 &= \frac{1+\alpha+\beta}{\alpha \beta};\\
+Q_4 &= \frac{1+\alpha}{\beta};\\
+Q_5 &= \alpha;
+Q_6 = \beta.
+\end{align}
+Solution is:
+\begin{align}
+Q_{5n} & = \alpha;
+Q_{5n+1} = \beta;\\
+Q_{5n+2} &= \frac{1+\beta}{\alpha};\\
+Q_{5n+3} &= \frac{1+\alpha+\beta}{\alpha \beta};\\
+Q_{5n+4} &= \frac{1+\alpha}{\beta}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.9:}
+(a) Rewrite $x_n$ in the right:
+\begin{align}
+x_1...x_{n-1}x_n \le (\frac{x_1+...+x_n}{n})^n = (\frac{x_1+...+x_{n-1}}{n-1})^n.
+\end{align}
+Then rewrite $x_n$ in the left proves the state $P(n-1)$:
+\begin{align}
+x_1...x_{n-1} \le (\frac{x_1+...+x_{n-1}}{n-1})^{n-1}.
+\end{align}
+(b) Combine following two inequations:
+\begin{align}
+x_1x_{2} & \le (\frac{x_1+x_2}{2})^2;\\
+x_1...x_{n} & \le (\frac{x_1+...+x_{n}}{n})^n.
+\end{align}
+implies $P(2n)$:
+\begin{align}
+(x_1...x_{n})(x_{n+1}...x_{2n}) \le  (\frac{x_1+...+x_{n}}{n})^n (\frac{x_{n+1}+...+x_{2n}}{n})^n \le (\frac{x_1+...+x_{2n}}{2n})^{2n}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.10:}
+$Q_n$: move n-1 from A to C, move the last one from A to B, move n-1 from C to B.
+$R_n$: move n-1 from B to A, move the last one from B to C, move n-1 from A to B, move the last one from C to A, move the n-1 from B to A.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.11:}
+(a) This is simlar to the single tower of hanoi, and every step in the single tower becauses two steps. so minimal step number is $2T_n$.
+(b) Consider the last two disks $\alpha$ covers $\beta$ at the begining.
+Move top 2n-2 from A to B, move $\alpha$ from A to C, move 2n-2 from B to C, move $\beta$ from A to B, move 2n-n from C to A, move $\alpha$ from C to B, move 2n-2 from A to B.
+\begin{align}
+A_0 & = 0;\\
+A_{2n} & = 4A_{2n-2}+3. && \{n>0\}
+\end{align}
+Solution is $A_{2n} = 4^n - 1$ where $n \ge 0$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.12:}
+\begin{align}
+A(m_1) &= m_1;\\
+A(m_1,...,m_n) &= 2A(m_1,..,m_{n-1}) + m_n. && \{n>1\}
+\end{align}
+Solution is $A(m_1,...,m_n) = (m_1,...,m_n)_2$ where $n \ge 1$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.13:}
+every three lines can generate 7 planes at most, however one zig-zag line will only generate 2 planes at most.
+Each zig-zag line generates 5 less planes than three lines:
+\begin{align}
+ZZ_{n} = L_{3n} - 5n. && \{n\ge0\}
+\end{align}
+Solution is $ZZ_n = \frac{1}{2}(9n^2 - 7n)+1$ where $n\ge 0$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.14:}
+put the last plane added plane in a table, to achieve maximum space number, each other plane must have a intersection line with it.
+New spaces below the table correspond to the planes segmented by the intersection lines on the table.
+\begin{align}
+P_0 &= 1;\\
+P_n &= P_{n-1} + L_{n-1}. && \{n\ge1\}
+\end{align}
+Solution is $P_n = 1 + \sum_{i=0}^{n-1}L_i$ where $n\ge0$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.15:}
+the process is un-changed, so the function is unchanged.
+But the initial value has changed.
+\begin{align}
+I(2) &= 2;\\
+I(3) &= 1;\\
+I(2n) &= 2I(n) - 1; && \{n>2\}\\
+I(2n+1) &= 2I(n) + 1. && \{n>2\}
+\end{align}
+Solution is $I((b_mb_{m-1}...b_0)_2) = (\alpha_{(b_mb_{m-1})_2} \beta_{b_{m-2}}\beta_{b_{m-3}}...\beta_{b_0})$ where $\alpha_{(10)_2} = 2$, $\alpha_{(11)_2} = 1$, $\beta_0 = -1$ and $\beta_1 = 1$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 1.16:}
+given
+\begin{align}
+g(1) &= \alpha;\\
+g(2n+j) &= 3g(n) + \gamma n + \beta_j. && \{\text{for }j=0,1\text{ and }n\ge 1\}
+\end{align}
+Solution should be
+\begin{align}
+g(n) = A(n)\alpha + B(n)\beta_0 + C(n)\beta_1 + D(n)\gamma. && \{n\ge 1\}
+\end{align}
+When $\gamma = 0$ there is 
+\begin{align}
+g((1b_{m-1}...b_0)_2) &= A(n)\alpha + B(n)\beta_0 + C(n)\beta_1 = (\alpha \beta_{b_{m-1}}...\beta_{b_0})_3.
+\end{align}
+Use $g(n) = n$
+\begin{align}
+g(1) &= \alpha = 1;\\
+0 &= n + \gamma n + \beta_0; && \{n\ge 1\}\\
+1 &= n + \gamma n + \beta_1. && \{n\ge 1\}
+\end{align}
+We have $\gamma = -1$, $\beta_0 = 0$ and $\beta_1 = 1$, which means
+\begin{align}
+n = A(n) + C(n) - D(n). && \{n\ge 1\}
+\end{align}
+$A(n)$ and $C(n)$ is required to solve $D(n)$.\\
+$\alpha = 1$ and $\beta_0 = \beta_1 = \gamma = 0$ can solve $A(n) = g(1b_{m-1}...b_0)_2) = 3^m$.\\
+$\beta_1 = 1$ and $\alpha = \beta_0 = \gamma = 0$ can solve $D(n) = g(1b_{m-1}...b_0)_2) = (b_{m-1}...b_0)_3$.\\
+Use function 61, 65 with $A(n)$ and $B(n)$:
+\begin{align}
+g((1b_{m-1}...b_0)_2) &= (\alpha \beta_{b_{m-1}}...\beta_{b_0})_3 + \gamma (3^m + (b_{m-1}...b_0)_3 - n)\\
+		      &= (\alpha \beta_{b_{m-1}}...\beta_{b_0})_3 + \gamma ((1b_{m-1}...b_0)_3 - n).
+\end{align}
+where $n = (1b_{m-1}...b_0)_2$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 1.17:}
+Set $g(n)=\frac{1}{2}n(n+1)$ where $n\ge 0$:
+\begin{align}
+W_{g(n)} & \le T_n + 2W_{g(n-1)} \\
+	 & \le T_n + 2(T_{n-1} + W_{g(n-2)})\\
+	 & ...\\
+	 & \le T_n + 2^1T_{n-1} + ... + 2^{n-2}T_2 + 2^{n-1}W_{g(1)}\\
+	 & \le (n-1)2^n - (2^{n-1}-1) + 2^{n-1}\\
+	 & \le (n-1)2^n + 1.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 1.18:} 
+If there are n zag lines, two rays of the ith ($1\le i \le n$) line is:
+\begin{align}
+y &= -\frac{1}{n^i}(x-n^{2i}); && \{x<=n^{2i}\}\\
+y &= -\frac{1}{n^i+n^{-n}}(x-n^{2i}). && \{x<=n^{2i}\}
+\end{align}
+To prove the state, following states should be proved: 
+A. Each ray of the ith zag line should have $2(n-1)$ intersection points with other rays.
+B. All intersection points are different.
+
+In the case $1\le i<j\le n$:
+\begin{align}
+-\frac{1}{n^i} < -\frac{1}{n^i+n^{-n}} < -\frac{1}{n^j} < -\frac{1}{n^j+n^{-n}} < 0
+\end{align}
+State A can be proved by the induction method.
+
+
+There are four kinds of intersections, given ($1\le i < j \le n$) 
+\begin{align}
+y &= -\frac{1}{n^i}(x-n^{2i}); && \{x \le n^{2i}\}\\
+y &= -\frac{1}{n^j}(x-n^{2j}); && \{x \le n^{2j}\}
+\end{align}
+Solution is $x_0 = -n^{i+j}$ and $y_0 =n^i+n^j$.
+\begin{align}
+y &= -\frac{1}{n^i+n^{-n}}(x-n^{2i}). && \{x \le n^{2i}\}\\
+y &= -\frac{1}{n^j+n^{-n}}(x-n^{2j}). && \{x \le n^{2j}\}
+\end{align}
+Solution is $x_1 = -n^{i+j} - n^{-n}(n^i+n^j)$ and $y_1 =n^i+n^j$.
+\begin{align}
+y &= -\frac{1}{n^i}(x-n^{2i}); && \{x \le n^{2i}\}\\
+y &= -\frac{1}{n^j+n^{-n}}(x-n^{2j}). && \{x \le n^{2j}\}
+\end{align}
+Solution is $x_2 = \frac{n^{2i+j} + n^{2i-n} - n^{i+2j}}{n^j+n^{-n} - n^i}$ and $y_2 =\frac{n^{2j}-n^{2i}}{n^j+n^{-n} - n^i}$.
+\begin{align}
+y &= -\frac{1}{n^i+n^{-n}}(x-n^{2i}). && \{x \le n^{2i}\}\\
+y &= -\frac{1}{n^j}(x-n^{2j}); && \{x \le n^{2j}\}
+\end{align}
+Solution is $x_3 = \frac{n^{i+2j} + n^{2j-n} - n^{2i+j}}{n^i+n^{-n} - n^j}$ and $y_3 =\frac{n^{2i}-n^{2j}}{n^i+n^{-n} - n^j}$.\\
+$x_0 \neq x_1$ for any i and j because $n^i + n^j \neq 0$.\\
+$y_0 \neq y_2$ for any i and j because $y_0 = \frac{n^{2i} - n^{2j}}{n^i - n^j}$ and $n^i - n^j \neq n^i - n^j -n^{-n}$.\\
+$y_0 \neq y_3$ for any i and j because $y_0 = \frac{n^{2i} - n^{2j}}{n^i - n^j}$ and $n^i - n^j \neq n^i - n^j +n^{-n}$.\\
+$y_2 \neq y_3$ for any i and j because $n^i - n^j +n^n \neq n^i - n^j +n^{-n}$.
+Then the state is proved.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 1.19:}
+$Z_n$ means any two rays have a intersection points, and this means $n \le 11$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 1.20:}
+given
+\begin{align}
+h(1) &= \alpha;\\
+h(2n+j) &= 4g(n) + \gamma_j n + \beta_j. && \{\text{for }j=0,1\text{ and }n\ge 1\}
+\end{align}
+Solution should be
+\begin{align}
+h(n) = A(n)\alpha + B(n)\beta_0 + C(n)\beta_1 + D(n)\gamma_0 + E(n)\gamma_1. && \{n\ge 1\}
+\end{align}
+when $\gamma_0 = \gamma_1 = 0$ there is
+\begin{align}
+h((1b_{m-1}...b_0)_2) &= A(n)\alpha + B(n)\beta_0 + C(n)\beta_1 = (\alpha \beta_{b_{m-1}}...\beta_{b_0})_4.
+\end{align}
+Use $h(n)=n$
+\begin{align}
+h(1) &= \alpha = 1;\\
+2n+0 &= 4n + \gamma_0 n + \beta_0;\\
+2n+1 &= 4n + \gamma_1 n + \beta_1.
+\end{align}
+We have $\alpha = 1$, $\gamma_0 = \gamma_1 = -2$, $\beta_0 = 0$ and $\beta_1 = 1$ which means:
+\begin{align}
+n = A(n) + C(n) -2D(n) - 2E(n).
+\end{align}
+Use $h(n)=n^2$
+\begin{align}
+h(1) &= \alpha = 1;\\
+4n^2 &= 4n^2 + \gamma_0 n + \beta_0;\\
+4n^2 + 4n +1 &= 4n^2 + \gamma_1 n + \beta_1.
+\end{align}
+We have $\alpha = 1$, $\gamma_0 = \beta_0 = 0$, $\gamma_1 = 4$ and $\beta_1 = 1$ which means:
+\begin{align}
+n^2 = A(n) + C(n) + 4E(n).
+\end{align}
+$A(n)$ and $C(n)$ is required to solve $D(n) = (3A(n) + 3C(n) - n^2 - 2n)/4$ and $E(n) = (n^2 - A(n) - C(n))/4$.\\
+$\alpha = 1$ and $\beta_0 = \beta_1 = \gamma_0 = \gamma_1 = 0$ can solve $A((1b_{m-1}...b_0)_2) = 4^m$.\\
+$\beta_1 = 1$ and $\beta_0 = \alpha = \gamma_0 = \gamma_1 = 0$ can solve $C((1b_{m-1}...b_0)_2) = (1b_{m-1}...b_0)_4$.\\
+Use function $A(n)$, $C(n)$, (96) and (92):
+\begin{align}
+g((1b_{m-1}...b_0)_2) =& (\alpha \beta_{b_{m-1}}...\beta_{b_0})_4 \\
+			&+ \gamma_0 (3*(2b_{m-1}...b_0)_4 - n^2 - 2n)/4 \\
+			&+ \gamma_1 (n^2 - (2b_{m-1}...b_0)_4)/4.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 1.21:}
+excute last people every time can excute bad peole firstly.
+Then m could be any common multiple of n+1, n+2, ..., n+n.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Bonus problems 1.22:}
+can use a De Bruijn cycle which is a De Bruign sequence of $B(2,n)$.
+The cycle is similar to a regular polygon and each edge is labeled as 0 or 1.
+Each edge labeled as 1 becomes a curve.
+Rotate and copy this shape $n-1$ times and consider these $n$ shapes.
+There are $2^n-2$ small spaces between edges and curves, because there is a $0...0$ edge and a $1...1$ curve.
+Add the space inside and the space outide, there are $2^n$ spaces.
+
+The algorithm for generating Eulerian Path can help to generate a De Bruijn sequence.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Bonus problems 1.23:}
+case 1: given p where $1\le n - p < j \le n/2$, and one way to save himself is to remove people in the order of $1,2,...,n-p$ then $j+1,j+2,...,n$ then $n-p+1,n-p+2,..,.j-1$.
+This order means remove the first people in the first $n-p$ moves.
+At this moment, the first people is n-p+1, and remove the j+1-(n-p)-th people whose id is $j+1$.
+At last remove the first people in rest moves.
+
+
+For the first $n-p$ people and the last $p-1$ people, $q \equiv 1 \pmod{lcm(n,n-1,...,1)/p}$.
+To jump from $n-p$ to $j+1-(n-p)$ when there are p people, $q \equiv j+1-n \pmod{p}$.
+According to the Chinese remainder theorem if p is a prime there is a solution for q.
+According to the Bertrand's postulate there always exists at least one prime between n/2 and n.
+
+
+case 2: given p where $1\le j < n/2$, and one way to save himself is to remove people in the order of $n,n-1,...,p+1$ then $j+1,j+2,...,p$ then $1,2,...,j-1$.
+This order means remove the last people in the first $n-p$ moves.
+At this moment, the first people is p, and remove the j+1-th people whose id is $j+1$.
+At last remove the first people in rest moves.
+
+
+For the first $n-p$ people and the last $p-1$ people, $q \equiv 0 \pmod{lcm(n,n-1,...,1)/p}$.
+To jump from $p$ to $j+1$ when there are p people, $q \equiv j+1 \pmod{p}$.
+According to the Chinese remainder theorem if p is a prime there is a solution for q.
+According to the Bertrand's postulate there always exists at least one prime between n/2 and n.
+
+
+So he can always save himself.
+
+
+\newpage
+\section{Sums}
+\subsection{SUMS AND RECURRENCES}
+\subsubsection{Example 1}
+$$R_0 = \alpha$$
+$$R_n = R_{n-1} + \beta + \gamma n, n\ge1$$
+Could be
+$$R_n = \alpha + \sum_{i=1}^{n}{(\beta + \gamma i)}$$
+\subsubsection{Example 2}
+$$T_0 = 0$$
+$$T_n = 2T_{n-1}+1$$
+Could be
+$$S_0 = 0$$
+$$S_n = T_n/2^n = 2T_{n-1}/2^n + 1/2^n = S_{n-1} + 2^{-n},n>0$$
+Then
+$$S_n = \sum_{i=1}^{n}{2^{-i}}$$
+\subsubsection{General Case}
+$$a_nT_n =b_nT_{n-1}+c_n$$
+Let
+$$s_na_nT_n =s_nb_nT_{n-1}+s_nc_n$$
+where $s_nb_n = s_{n-1}a_{n-1}$.
+Given $S_n = s_na_nT_n$
+$$S_n = S_{n-1}+s_nc_n$$
+Then
+$$S_n = s_0a_0T_0 + \sum_{i=1}^{n}{s_ic_i} = s_1b_1T_0 + \sum_{i=1}^{n}{s_ic_i}$$
+and
+$$s_n = \frac{a_{n-1}...a_1}{b_n...b_2}$$
+\subsubsection{Example 3}
+$$C_0 = 0$$
+$$C_n = n+1+\frac{2}{n}\sum_{i=0}^{n-1}C_i,i>0$$
+The idea is to remove $\sum$ in the right by $C_n - C_{n-1}$, the final result is
+$$C_n = 2(n+1)H_n - 2n$$
+where
+$$H_n = \sum_{i=1}^n{\frac{1}{i}}$$
+\subsection{MANIPULATION OF SUMS}
+\subsubsection{Basic Rules}
+Distributive law
+$$\sum_{k\in K} ca_k = c\sum_{k\in K}a_k$$
+Associative law
+$$\sum_{k\in K} {(a_k+b_k)} = \sum_{k\in K}a_k + \sum_{k\in K}b_k $$
+Commutative law
+$$\sum_{k\in K} ca_k = \sum_{p(k)\in K}a_{p(k)}$$
+where $p(k)$ re-orders the terms.
+Then
+$$\sum_{k\in K} {a_k} + \sum_{k\in K'}{a_k} = \sum_{k\in K \cap K'} {a_k} + \sum_{k\in K' \cup K'}{a_k} $$
+
+\subsection{MULTIPLE SUMS}
+
+
+
+
+
+
+
+
+%\insertcode{"scripts/init0.zsh"}{An easy init example}
+
+
+\end{document}
