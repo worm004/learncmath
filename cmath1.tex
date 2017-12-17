@@ -488,63 +488,6 @@ According to the Bertrand's postulate there always exists at least one prime bet
 
 So he can always save himself.
 
-
-\newpage
-\section{Sums}
-\subsection{SUMS AND RECURRENCES}
-\subsubsection{Example 1}
-$$R_0 = \alpha$$
-$$R_n = R_{n-1} + \beta + \gamma n, n\ge1$$
-Could be
-$$R_n = \alpha + \sum_{i=1}^{n}{(\beta + \gamma i)}$$
-\subsubsection{Example 2}
-$$T_0 = 0$$
-$$T_n = 2T_{n-1}+1$$
-Could be
-$$S_0 = 0$$
-$$S_n = T_n/2^n = 2T_{n-1}/2^n + 1/2^n = S_{n-1} + 2^{-n},n>0$$
-Then
-$$S_n = \sum_{i=1}^{n}{2^{-i}}$$
-\subsubsection{General Case}
-$$a_nT_n =b_nT_{n-1}+c_n$$
-Let
-$$s_na_nT_n =s_nb_nT_{n-1}+s_nc_n$$
-where $s_nb_n = s_{n-1}a_{n-1}$.
-Given $S_n = s_na_nT_n$
-$$S_n = S_{n-1}+s_nc_n$$
-Then
-$$S_n = s_0a_0T_0 + \sum_{i=1}^{n}{s_ic_i} = s_1b_1T_0 + \sum_{i=1}^{n}{s_ic_i}$$
-and
-$$s_n = \frac{a_{n-1}...a_1}{b_n...b_2}$$
-\subsubsection{Example 3}
-$$C_0 = 0$$
-$$C_n = n+1+\frac{2}{n}\sum_{i=0}^{n-1}C_i,i>0$$
-The idea is to remove $\sum$ in the right by $C_n - C_{n-1}$, the final result is
-$$C_n = 2(n+1)H_n - 2n$$
-where
-$$H_n = \sum_{i=1}^n{\frac{1}{i}}$$
-\subsection{MANIPULATION OF SUMS}
-\subsubsection{Basic Rules}
-Distributive law
-$$\sum_{k\in K} ca_k = c\sum_{k\in K}a_k$$
-Associative law
-$$\sum_{k\in K} {(a_k+b_k)} = \sum_{k\in K}a_k + \sum_{k\in K}b_k $$
-Commutative law
-$$\sum_{k\in K} ca_k = \sum_{p(k)\in K}a_{p(k)}$$
-where $p(k)$ re-orders the terms.
-Then
-$$\sum_{k\in K} {a_k} + \sum_{k\in K'}{a_k} = \sum_{k\in K \cap K'} {a_k} + \sum_{k\in K' \cup K'}{a_k} $$
-
-\subsection{MULTIPLE SUMS}
-
-
-
-
-
-
-
-
 %\insertcode{"scripts/init0.zsh"}{An easy init example}
-
 
 \end{document}
