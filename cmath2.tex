@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage[a4paper,hmargin=1.25in,vmargin=1in]{geometry}
+
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{amsmath}
+
+\definecolor{DarkGreen}{rgb}{0.0,0.4,0.0}
+\definecolor{highlight}{RGB}{255,251,204}
+
+\lstdefinestyle{Style1}{
+language=CPP, 
+backgroundcolor=\color{highlight}, 
+basicstyle=\footnotesize\ttfamily,
+breakatwhitespace=false,
+breaklines=true,
+captionpos=b,
+commentstyle=\usefont{T1}{pcr}{m}{sl}\color{DarkGreen},
+deletekeywords={},
+%escapeinside={\%}, % This allows you to escape to LaTeX using the character in the bracket
+firstnumber=1,
+frame=single,
+frameround=tttt,
+keywordstyle=\color{Blue}\bf,
+morekeywords={},
+numbers=left,
+numbersep=10pt,
+numberstyle=\tiny\color{Gray},
+rulecolor=\color{black},
+showstringspaces=false,
+showtabs=false,
+stepnumber=1,
+stringstyle=\color{Purple},
+tabsize=2,
+}
+
+\newcommand{\insertcode}[2]{\begin{itemize}\item[]\lstinputlisting[caption=#2,label=#1,style=Style1]{#1}\end{itemize}}
+
+\begin{document}
+
+\section{Sums}
+\subsection{NOTATION}
+$a_1,...,a_n$ could be presented as:
+\begin{align}
+\sum_{k=1}^{n}{a_k} = \sum_{k=0}^{n-1}{a_{k+1}} = \sum_{1\le k \le n}{a_k} = \sum_{1\le k+1 \le n}{a_{k+1}}.
+\end{align}
+Indicator is also can be used:
+\begin{align}
+\sum_{k=1}^{n}{a_k} = \sum_{k}{a_k}[i\le k \le n].
+\end{align}
+The indicator could be more powerful than others:
+\begin{align}
+\sum_{p}[p\le N]/p.
+\end{align}
+p could be 0 and the term $[0\le N]/0$ is 0.
+
+\subsection{SUMS AND RECURRENCES}
+\subsubsection{Simple Cases}
+One way to solve $S_n = \sum_{k=0}^n{a_k}$ is to convert the problem into a recurrence problem:
+\begin{align}
+S_0 &= a_0;\\
+S_n &= S_{n-1} + a_n. && \{n>0\}
+\end{align}
+Conversely, some recurrences can be reduced to sums:
+\begin{align}
+T_0 &= 0;\\
+T_n &= 2T_{n-1}+1.&& \{n>0\}
+\end{align}
+Set $S_n = \frac{T_n}{2n}$ it turns:
+\begin{align}
+S_0 &= 0;\\
+S_n &= S_{n-1} + 2^{-n}. && \{n>0\}
+\end{align}
+which means $S_n = \sum_{k=1}^{n}{2^{-k}}$.
+
+\subsubsection{A General Case}
+A more general case is
+\begin{align}
+a_nT_n = b_nT_{n-1}+c_n.
+\end{align}
+and use a $s_n$ where $s_nb_n = s_{n-1}a_{n-1}$:
+\begin{align}
+s_na_nT_n =s_nb_nT_{n-1}+s_nc_n.
+\end{align}
+Let $S_n = s_na_nT_n$ there is
+\begin{align}
+S_n = S_{n-1}+s_nc_n.
+\end{align}
+and
+\begin{align}
+S_n = s_0a_0T_0 + \sum_{i=1}^{n}{s_ic_i} = s_1b_1T_0 + \sum_{i=1}^{n}{s_ic_i}.
+\end{align}
+Hence $T_n$ is solved:
+\begin{align}
+T_n = \frac{1}{s_na_n}(s_1b_1T_0 + \sum_{k=1}^{n}{s_kc_k}).
+\end{align}
+The choice of $s_n$ is:
+\begin{align}
+s_n = \frac{a_1...a_{n-1}}{b_2...b_{n}}.
+\end{align}
+
+\subsubsection{A Quick Sort Case}
+\begin{align}
+C_0 &= 0;\\
+C_n &= n+1+\frac{2}{n}\sum_{k=0}^{n-1}{C_k}. && \{n>0\}
+\end{align}
+The solution is to multiply n on both side:
+\begin{align}
+nC_n &= n^2+n+2\sum_{k=0}^{n-1}{C_k}. && \{n>0\}\\
+(n-1)C_{n-1} &= (n-1)^2+(n-1)+2\sum_{k=0}^{n-2}{C_k}. && \{n-1>0\}
+\end{align}
+then
+\begin{align}
+C_0 &= 0;\\
+nC_n &= (n+1)C_{n-1} + 2n. && \{n>0\}
+\end{align}
+So the solution is
+\begin{align}
+C_n = 2(n+1)\sum_{k=1}^{n}{\frac{1}{k+1}}.
+\end{align}
+Harmonic $H_n$ is
+\begin{align}
+H_n = \sum_{k=1}^{n}{\frac{1}{k}}.
+\end{align}
+So $C_n$ can be presented in a shorter way:
+\begin{align}
+C_n = 2(n+1)H_n - 2n.
+\end{align}
+
+\subsection{MANIPULATION OF SUMS}
+\subsubsection{Basic Rules}
+
+\begin{align}
+\sum_{k\in K} ca_k &= c\sum_{k\in K}a_k; && \text{Distributive law}\\
+\sum_{k\in K} {(a_k+b_k)} &= \sum_{k\in K}a_k + \sum_{k\in K}b_k; && \text{Associative law}\\
+\sum_{k\in K} a_k &= \sum_{p(k)\in K}a_{p(k)}. && \text{Commutative law}
+\end{align}
+
+%where $p(k)$ re-orders the terms.
+%Then
+%$$\sum_{k\in K} {a_k} + \sum_{k\in K'}{a_k} = \sum_{k\in K \cap K'} {a_k} + \sum_{k\in K' \cup K'}{a_k} $$
+%
+%\subsection{MULTIPLE SUMS}
+
+%\insertcode{"scripts/init0.zsh"}{An easy init example}
+
+
+\end{document}
