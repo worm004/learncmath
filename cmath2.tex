@@ -1,8 +1,7 @@
 \documentclass{article}
 \usepackage[a4paper,hmargin=1.25in,vmargin=1in]{geometry}
 
-\usepackage{listings}
-\usepackage[usenames,dvipsnames]{color}
+\usepackage{listings} \usepackage[usenames,dvipsnames]{color}
 \usepackage{amsmath}
 \usepackage{latexsym}
 
@@ -39,6 +38,7 @@ tabsize=2,
 
 \begin{document}
 
+\setcounter{section}{1}
 \section{Sums}
 \subsection{NOTATION}
 $a_1 + ... + a_n$ could be presented as:
@@ -424,6 +424,323 @@ Example two.
 \end{align}
 
 \subsection{INFINITE SUMS}
+Let $x = x^+ - x^-$ where $x^+ = x[x > 0]$ and $x^- = -x[x<0]$.
+The infiite sums can be presented as:
+\begin{align}
+\sum_{k \in K} a_k = \sum_{k \in K} a_k^+ - \sum_{k \in K} a_k^-.
+\end{align}
+Let $A^+ = \sum_{k \in K} a_k^+$ and $A^- = \sum_{k \in K} a_k^-$, $\sum_{k \in K}a_k$ is converge absolutely if both $A^+$ and $A^-$ is finite, $\sum_{k \in K}a_k$ is diverge to $\inf$ or $-\inf$ if $A^+$ is infinite or $A^-$ is infinite, else $\sum_{k \in K}a_k$ is undefined.
 
 
+Many rules can be proved in converge absolutely cases.
+
+
+The distributive law: if $\sum_{k \in K} a_k$ converges absolutely to $A$, then $\sum_{k \in K} ca_k$ converges absolutely to $cA$.
+
+
+The associative law: if $\sum_{k \in K} a_k$ and $\sum_{k \in K} b_k$ converge absolutely to $A$ and $B$, then $\sum_{k \in K} (a _b + b_k)$ converges absolutely to $A+B$.
+
+
+The commutative law: absolutely convergent sums over two or more indices can always be summed first with respect to any one of those indices.
+
+\subsection{Exercises}
+\textbf{Warmups 2.1:} 
+\begin{align}
+\sum_{k=4}^0 q_k = \sum_{k} q_k[4 \le k <= 0] = 0.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.2:}
+\begin{align}
+x([x>0]-[x<0]) = |x|.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.3:}
+\begin{align}
+\sum_{0 \le k \le 5} a_k &= a_0 + a_1 + a_2 + a_3 + a_4 + a_5;\\
+\sum_{0 \le k^2 \le 5} a_{k^2} &= a_0 + a_1 + a_4.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.4:}
+\begin{align}
+\sum_{1 \le i < j < k \le 4} a_{ijk} &= ((a_{123} + a_{124}) + a_{134}) + a_{234}; && \{\text{case a}\} \\
+				     &= a_{123} + (a_{124} + (a_{134} + a_{234})). && \{\text{case b}\}
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.5:}
+\begin{align}
+(\sum_{j=1}^n a_j) (\sum_{k=1}^n \frac{1}{a_k}) &= \sum_{j=1}^n \sum_{k=1}^n \frac{a_j}{a_k}\\
+						&\neq \sum_{k=1}^n \sum_{k=1}^n \frac{a_k}{a_k}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.6:}
+\begin{align}
+\sum_{k}[1\le j\le k \le n] &= 0; && \{\text{if } [1 \le j \le n]\}\\
+			    &= n-j+1. && \{\text{else}\}
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.7:}
+\begin{align}
+\bigtriangledown (x^{\overline m}) = x^{\overline m} - (x-1)^{\overline m} = m x^{\overline {m-1}}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.8:}
+\begin{align}
+0^{\underline m} &= 0; && \{m > 0\}\\
+		 &= \frac{1}{|m|!}. &&\{m \le 0\}
+\end{align}
+
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.9:}
+The definition is:
+\begin{align}
+x^{\overline m} &= x(x+1)...(x+m-1); && \{m > 0\}\\
+		&= 1; &&\{m = 0\}\\
+		&= \frac{1}{(x-1)...(x-m)}. &&\{m < 0\}
+\end{align}
+Based on the definition:
+\begin{align}
+x^{\overline {m+n}} = x^{\overline m}(x+m)^{\overline n}.
+\end{align}
+The solution is:
+\begin{align}
+x^{\overline {-n + n}} &= 1 = x^{\overline {-n}}(x-n)^{\overline n};\\
+x^{\overline {-n}} &= \frac{1}{(x-n)^{\overline n}}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Warmups 2.10:}
+\begin{align}
+\bigtriangleup (uv) = u\bigtriangleup v + Ev\bigtriangleup u = v\bigtriangleup u + Eu\bigtriangleup v.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 2.11:}
+\begin{align}
+\sum_{0 \le k < n} (a_{k+1} - a_k) b_k &= \sum_{0 \le k < n} a_{k+1}b_k - \sum_{0 \le k < n} a_k b_k \\
+				       &= \sum_{0 \le k < n} a_{k+1}b_k - (a_0 b_0 + \sum_{1 \le k \le n} a_k b_k - a_n b_n) \\
+				       &= a_n b_n - a_0 b_0 - (\sum_{1 \le k \le n} a_k b_k - \sum_{0 \le k < n} a_{k+1}b_k) \\
+				       &= a_n b_n - a_0 b_0 - \sum_{0 \le k < n} a_{k+1}(b_{k+1} - b_{k}).
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 2.12:}
+\begin{align}
+p(k) &= k - c; && \{ k \text{ is odd} \} \\
+     &= k + c. && \{ k \text{ is even} \}
+\end{align}
+Prove $p(k) \neq p(j)$ if $k \neq j$.
+\begin{align}
+k - c &\neq j - c; && \{\text{k and j is odd}\}\\
+k + c &\neq j + c; && \{\text{k and j is even}\}\\
+k - c &\neq j + c. && \{\text{k is odd and j is even}\}
+\end{align}
+Prove any integer number $n$ can be presented by $p(k)$.
+\begin{align}
+n = k - c;&& \{n+c\text{ is odd}\}\\
+n = k + c.&& \{n-c\text{ is even}\}
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 2.13:}
+\begin{align}
+f(0) &= \alpha;\\
+f(n) &= f(n-1) + (-1)^n(\beta + n \gamma + n^2 \delta);\\
+f(n) &= A(n) \alpha + B(n) \beta + C(n) \gamma + D(n) \delta.
+\end{align}
+Try
+\begin{align}
+f(n) &= 1;\\
+f(n) &= (-1)^n;\\
+f(n) &= n(-1)^n;\\
+f(n) &= n^2(-1)^n.
+\end{align}
+Then
+\begin{align}
+f(n) = D(n) = \frac{1}{2}(-1)^n(n^2+n).
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 2.14:}
+\begin{align}
+\sum_{k=1}^n k2^k &= \sum_{1\le j \le k \le n} 2^k = \sum_{1 \le j \le n} \sum_{j \le k \le n} 2^k \\
+		  &= \sum_{1 \le j \le n} (2^{n+1} - 2^j) \\
+		  &= (n-1)2^{n+1} + 2.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 2.15:}
+\begin{align}
+S3 &= \sum_{k=1}^nk^3;\\
+S2 &= \sum_{k=1}^nk^2;\\
+S1 &= \sum_{k=1}^nk.
+\end{align}
+Then
+\begin{align}
+S3 + S2 = 2\sum_{1 \le j \le k \le n}jk = (\sum_{k=1}^n k)^2 + \sum_{k=1}^n k^2 = (\sum_{k=1}^n k)^2 + S2.
+\end{align}
+Solution is:
+\begin{align}
+S3 = (\sum_{k=1}^n k)^2 = (\frac{1}{2}n(n+1))^2.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 2.16:}
+\begin{align}
+x^{\underline {m+n}} = x^{\underline m}(x-m)^{\underline n} = x^{\underline n}(x-n)^{\underline m}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 2.17:}
+Following rules and basic definitions can be used to prove states.
+\begin{align}
+(x+m-1)^{\underline m} (x-1)^{\underline {-m}} &= (x-1)^{\underline 0} = 1.\\
+(x-m+1)^{\overline m} (x+1)^{\overline {-m}} &= (x+1)^{\overline 0} = 1.
+\end{align}
+%\begin{align}
+%x^{\overline m} &= x(x+1)...(x+m-1) && \{m > 0\} \\
+%		&= (-1)^m (-x)(-x-1)...(-x-m+1) = (-1)^m(-x)^{\underline m}\\
+%		&= (x+m-1)...(x+1)x = (x+m-1)^{\underline m};\\
+%x^{\overline m} &= 1 &&\{m = 0\}\\
+%		&= (-1)^m(-x)^{\underline m} = (x+m-1)^{\underline m};\\
+%x^{\overline m} &= \frac{1}{(x-1)...(x-m+1)} && \{m < 0\} \\
+%		&= (-1)^m \frac{1}{(-x+1)...(-x+m-1)} = (-1)^m(-x)^{\underline m} \\
+%		&= \frac{1}{(x-m+1)...(x-1)} = (x+m-1)^{\underline m}.\\
+%\end{align}
+
+
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 2.18:}
+Unknown.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.19:}
+\begin{align}
+T_0 &= 5;\\
+2T_n &= nT_{n-1} + 3n! && \{ n > 0\}
+\end{align}
+Let $s_n = \frac{2^{n-1}}{n!}$ and mutiply to both sides:
+\begin{align}
+\frac{2^nT_n}{n!} = \frac{2^{n-1}T_{n-1}}{(n-1)!} + 3 *2^{n-1}.
+\end{align}
+Then
+\begin{align}
+S_0 &= 5; \\
+S_n &= S_{n-1} + 3 * 2^{n-1}. 
+\end{align}
+And
+\begin{align}
+S_n = S_0 + 3(2^0 + ... + 2^{n-1}) = 5 + 3(2^n - 1) = 3*2^n + 2.
+\end{align}
+The solution is:
+\begin{align}
+T_0 &= 5;\\
+T_n &= n!(3 + 2^{1-n}).
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.20:}
+\begin{align}
+\sum_{k=0}^n kH_k + (n+1)H_{n+1} &= \sum_{k=0}^n (k+1)H_{k+1} \\
+				 &= \sum_{k=0}^n kH_k + \sum_{k=0}^n H_k + n.\\
+\end{align}
+Then 
+\begin{align}
+\sum_{k=0}^n H_k = (n+1)H_{n+1} - n - 1.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.21:}
+Rewrite formulas.
+\begin{align}
+S_n &= \sum_{k=0}^n (-1)^{n-k} = \sum_{k=0}^n (-1)^k; \\
+T_n &= \sum_{k=0}^n (-1)^{n-k}k = \sum_{k=0}^n (-1)^{k}(n-k); \\
+U_n &= \sum_{k=0}^n (-1)^{n-k}k^2 = \sum_{k=0}^n (-1)^{k}(n-k)^2.
+\end{align}
+Problem 1.
+\begin{align}
+S_n + (-1)^{n+1} = 1 + \sum_{k=0}^n (-1)^{k+1} = 1 - \sum_{k=0}^n (-1)^{k} = 1 - S_n.
+\end{align}
+Soluiton is
+\begin{align}
+S_n = \frac{1 + (-1)^n}{2} = [\text{n is even}].
+\end{align}
+Problem 2.
+\begin{align}
+T_{n+1} = \sum_{k=0}^{n+1}(-1)^k(n+1-k) = \sum_{k=0}^n(-1)^k(n+1-k) = T_n + S_n.
+\end{align}
+Then
+\begin{align}
+T_{n+1} = \sum_{k=0}^{n}S_k = \sum_{k=0}^{n}\frac{1+(-1)^k}{2} = \frac{n+1}{2} + \frac{S_n}{2}.
+\end{align}
+Solution is
+\begin{align}
+T_n = \frac{n + S_{n-1}}{2} = \frac{n + [\text{n is odd}]}{2}.
+\end{align}
+Problem 3.
+\begin{align}
+U_{n+1} &= \sum_{k=0}^{n+1}(-1)^k(n+1-k)^2 \\
+	&= \sum_{k=0}^n(-1)^k((n-k)^2 + 2(n-k) + 1) \\
+	&= U_n + S_n + 2T_n \\
+	&= U_n + n + ([\text{n is odd}] + [\text{n is even}])\\
+	&= U_n + n + 1.
+\end{align}
+Then 
+\begin{align}
+U_n = \frac{n(n+1)}{2}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.22:}
+\begin{align}
+\sum_{1 \le j < k \le n} (a_j b_k - a_k b_j)(A_j B_k - A_k B_j) &= \frac{1}{2} \sum_{1 \le j\text{, } k \le n} (a_j b_k - a_k b_j)(A_j B_k - A_k B_j) \\
+								&= \sum_{1 \le j \le n} a_j A_j \sum_{1 \le j \le n} b_j B_j - \sum_{1 \le j \le n} b_j A_j \sum_{1 \le j \le n} a_j B_j.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.23:}
+Method a.
+\begin{align}
+\sum_{k=1}^n \frac{2k+1}{k(k+1)} &= \sum_{k=1}^n (2k+1)(\frac{1}{k} - \frac{1}{k+1}) \\
+				 &= \sum_{k=1}^n (\frac{1}{k} + \frac{1}{k+1}) \\
+				 &= 2H_n + \frac{1}{n+1} - 1.
+\end{align}
+Method b.
+\begin{align}
+\sum_{k=1}^n \frac{2k+1}{k(k+1)} &= \sum\nolimits_{1}^{n+1} \frac{2x+1}{x(x+1)} \delta x \\
+				 &= \sum\nolimits_{1}^{n+1} -(2x+1) \delta (x-1)^{\underline {-1}} \\
+				 &= -(2k+1)k^{\underline {-1}}\Big|_1^{n+1} + \sum\nolimits_{1}^{n+1} k^{\underline {-1}} \delta 2k\\
+				 &= -1 - \frac{1}{n+1} + 2H_{n+1}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.24:}
+\begin{align}
+\sum\nolimits_{0}{n} \frac{H_x}{(x+1)(x+2)} \delta x &= \sum\nolimits_{0}{n} H_x x^{\underline {-2}} \delta x \\
+						       &= \sum\nolimits_{0}{n} -H_x \delta x^{\underline {-1}} \\
+						       &= -H_x x^{\underline {-1}}\Big|_0^{n} - \sum\nolimits_{0}^{n} -x^{\underline {-1}} \delta H_x \\
+						       &= -H_x x^{\underline {-1}}\Big|_0^{n+1} + \sum\nolimits_{0}^{n} x^{\underline {-2}} \delta x\\
+						       &= x^{\underline {-1}} (-1 - H_x) \Big|_0^{n+1}\\
+						       &= \frac{n - H_n}{n+1}.
+\end{align}
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.25:}
+
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.26:}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.27:}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 2.28:}
 \end{document}
