@@ -733,14 +733,118 @@ Method b.
 \end{align}
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Homework exercises 2.25:}
-
+\begin{align}
+\prod_{k \in K}a_k^c &= (\prod_{k \in K}a_k)^c; \\
+\prod_{k \in K}a_k b_k &= \prod_{k \in K}a_k \prod_{k \in K}b_k; \\
+\prod_{k \in K}a_k &= \prod_{p(k) \in K}a_{p(k)}; \\
+\prod_{j \in J,k\in K} a_{j,k} &= \prod_{j \in J} \prod_{k \in K} a_{j,k}; \\
+\prod_{k \in K}a_k &= \prod_k a_k^{[k \in K]};\\
+\prod_{k \in K} c &= c^{\#K}.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Homework exercises 2.26:}
+\begin{align}
+\prod_{1 \le j \le k \le n} &= \sqrt{\prod_{1 \le j,k\le n}a_j a_k \prod_{1 \le j = k \le n}a_j a_k} \\
+			    &= \sqrt{\prod_{1 \le k \le n} a_k^{2n+2}} \\
+			    &= \prod_{1 \le k \le n} a_k^{n+1}.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Homework exercises 2.27:}
+\begin{align}
+\bigtriangleup (c^{\underline x}) = c^{\underline {x+1}} - c^{\underline {x}} =  c^{\underline {x}}(c - x - 1) = \frac{c^{\underline {x+2}}}{c-x}.
+\end{align}
+Then
+\begin{align}
+\sum_{k=1}^n \frac{(-2)^{\underline k}}{k} &= \sum\nolimits_1^{n+1} \frac{(-2)^{\underline x}}{x} \delta x \\
+					   &= \sum\nolimits_1^{n+1} \delta -(-2)^{\underline {x-2}} \\
+					   &= -(-2)^{\underline {x-2}} \Big|_1^{n+1} \\
+					   &= -(-2)^{\underline {n-1}} + (-2) ^{\underline {-1}} \\
+					   &= -(-1)^{n-1} n! - 1.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Homework exercises 2.28:}
+\begin{align}
+\sum_{k\ge 1} \sum_{j \ge 1} (\frac{k}{j}[j = k+1] - \frac{j}{k}[j = k - 1]) \neq \sum_{j \ge 1} \sum_{k \ge 1} (\frac{k}{j}[j = k+1] - \frac{j}{k}[j = k - 1]).
+\end{align}
+Because the function is not converge absolutely, so the exchange of the two sum cannot be applied.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 2.29:}
+\begin{align}
+\sum_{k=1}^n \frac{(-1)^k k}{4k^2 - 1} &= \sum_{k=1}^n \frac{(-1)^k k}{(2k+1)(2k-1)} \\
+				       &=  \frac{1}{2}\sum_{k=1}^n \frac{(-1)^k}{4k-2} + \frac{1}{2}\sum_{k=1}^n \frac{(-1)^k}{4k+2} \\
+				       &= \frac{1}{2}(-\frac{1}{2} + \frac{(-1)^n}{4n+2}).
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 2.30:}
+\begin{align}
+\sum_{x = a}^{b-1} x = \sum \nolimits_a^b x \delta x = \frac{1}{2}x^{\underline 2} \Big|_a^b  = \frac{1}{2}(b-a)(b+a-1).
+\end{align}
+Then 
+\begin{align}
+(b-a)(b+a-1) = 2100 = 2^2 * 3 * 5^2 * 7 = 2^{p_2} * 3^{p_3} * 5^{p_5}* 7^{p_7}.
+\end{align}
+Beacause $(b-a)$ and $b+a-1$ is a even number and a odd number.
+The number of possible odd number could be 
+\begin{align}
+\prod_{k>2}(p_k + 1) = (1+1)(2+1)(1+1) = 12.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 2.31:}
+a.
+\begin{align}
+\sum_{k \ge 2} (\zeta(k)-1) &= \sum_{k \ge 2} \sum_{j \ge 2} \frac{1}{j^k} \\
+			    &= \sum_{j \ge 2} \sum_{k \ge 2} \frac{1}{j^k}  \\
+			    &= \sum_{j \ge 2} \frac{\frac{1}{j^2}}{1 - \frac{1}{j}} \\
+			    &= \sum_{j \ge 2} (\frac{1}{j-1} - \frac{1}{j}) \\
+			    &= 1.
+\end{align}
+b.
+\begin{align}
+\sum_{k \ge 1} (\zeta(2k)-1) &= \sum_{k \ge 1} \sum_{j \ge 2} \frac{1}{j^{2k}} \\
+			    &= \sum_{j \ge 2} \sum_{k \ge 2} \frac{1}{j^{2k}}  \\
+			    &= \sum_{j \ge 2} \frac{1}{2}(\frac{1}{j-1} - \frac{1}{j+1}) \\
+			    &= \frac{3}{4}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 2.32:}
+Let $S_0$ be the left function and $S_1$ be the right function.
+When $2n \le x < 2n + 1$
+\begin{align}
+S_0 &= 1 + 2 + 3 + ... + n + (x-n-1) + ... + (x - 2n) \\
+S_1 &= (x-1) + (x-3) + ... + (x - 2n + 1)
+\end{align}
+When $2n-1 \le x < 2n$
+\begin{align}
+S_0 &= 0 + 1 + 2 + 3 + ... + n-1 + (x-n) + ... + (x - 2n + 1) \\
+S_1 &= (x-1) + (x-3) + ... + (x - 2n + 1)
+\end{align}
+Then solution is $n(x-n)$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Bonus problems 2.33:}
+\begin{align}
+\prod_{k \in K}a_k^c &= (\prod_{k \in K}a_k)^c; \\
+\prod_{k \in K}a_k b_k &= \prod_{k \in K}a_k \prod_{k \in K}b_k; \\
+\prod_{k \in K}a_k &= \prod_{p(k) \in K}a_{p(k)}; \\
+\prod_{j \in J,k\in K} a_{j,k} &= \prod_{j \in J} \prod_{k \in K} a_{j,k}; \\
+\prod_{k \in K}a_k &= \prod_k a_k^{[k \in K]};\\
+\prod_{k \in K} c &= c^{\#K}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Bonus problems 2.34:}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Bonus problems 2.35:}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Bonus problems 2.36:}
+
 \end{document}
