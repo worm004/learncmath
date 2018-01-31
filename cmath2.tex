@@ -830,21 +830,85 @@ Then solution is $n(x-n)$.
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Bonus problems 2.33:}
 \begin{align}
-\prod_{k \in K}a_k^c &= (\prod_{k \in K}a_k)^c; \\
-\prod_{k \in K}a_k b_k &= \prod_{k \in K}a_k \prod_{k \in K}b_k; \\
-\prod_{k \in K}a_k &= \prod_{p(k) \in K}a_{p(k)}; \\
-\prod_{j \in J,k\in K} a_{j,k} &= \prod_{j \in J} \prod_{k \in K} a_{j,k}; \\
-\prod_{k \in K}a_k &= \prod_k a_k^{[k \in K]};\\
-\prod_{k \in K} c &= c^{\#K}.
+\land_{k \in K}c a_k &= c\land_{k \in K} a_k; \\
+\land_{k \in K} (a_k + b_k) &= \land_{k \in K}a_k + \land_{k \in K}b_k; \\
+\land_{k \in K}a_k &= \land_{p(k) \in K}a_{p(k)}; \\
+\land_{j \in J,k\in K} a_{j,k} &= \land_{j \in J} \land_{k \in K} a_{j,k}; \\
+\land_{k \in K}a_k &= \land_k a_k \infty^{[k \not\in K]}.
 \end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Bonus problems 2.34:}
+This problem is not perfectly solved.
+
+
+If the $\sum_{k \in K} a_k$ is undefined, $\sum_{k \in K} a_k^+$ and $\sum_{k \in K} a_k^-$ are all equal to $\infty$.
+This means $\sum_{k \in K} a_k$ can be larger or smaller to any value.
+Then there must exist a $E_1$:
+\begin{align}
+\sum_{k \in F_1} a_k = \sum_{k \in E_1} a_k \le A^-.
+\end{align}
+For the rest $F_n$, let
+\begin{align}
+F_n = F_{n-1} \cup E_n.
+\end{align}
+When n is even:
+\begin{align}
+\sum_{k \in F_n} a_k = \sum_{k \in F_{n-1} \cup E_n} a_k = \sum_{k \in F_{n-1}} a_k + \sum_{k \in E_n} a_k - \sum_{k \in F_{n-1} \cap E_n} a_k \ge A^+.
+\end{align}
+Then there must exist a $E_n$ that $F_{n-1} \cap E_n \neq \phi$:
+\begin{align}
+\sum_{k \in E_n} a_k \ge A^+ - \sum_{k \in F_{n-1}} a_k + \sum_{k \in F_{n-1} \cap E_n} a_k.
+\end{align}
+When n is odd:
+\begin{align}
+\sum_{k \in F_n} a_k = \sum_{k \in F_{n-1} \cup E_n} a_k = \sum_{k \in F_{n-1}} a_k + \sum_{k \in E_n} a_k - \sum_{k \in F_{n-1} \cap E_n} a_k \le A^-.
+\end{align}
+Then there must exist a $E_n$ that $F_{n-1} \cap E_n \neq \phi$:
+\begin{align}
+\sum_{k \in E_n} a_k \le A^- - \sum_{k \in F_{n-1}} a_k + \sum_{k \in F_{n-1} \cap E_n} a_k.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Bonus problems 2.35:}
+Perfect power: $n$ is a perfect power if there exist natural numbers $m > 1$, and $k > 1$ such that $m^k = n$.
+
+
+Goldbach Euler theorem:
+\begin{align}
+\sum_{k\in P} \frac{1}{k-1} = 1
+\end{align}
+Let P is the perfect power set and T is the nopower set.
+\begin{align}
+\sum_{k\in P} \frac{1}{k-1} &= \sum_{k\in P} (k-1)^{-1} \\
+			    &= \sum_{i \ge 2} \sum_{a \in T}(a^i-1)^{-1} \\
+			    &= \sum_{i \ge 2} \sum_{a \in T} \sum_{j \ge 1} a^{-ij} \\
+			    &= \sum_{n \ge 2} \sum_{k \ge 2} n^{-k} \\
+			    &= \sum_{n \ge 2} (n(n-1))^{-1} = 1.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Bonus problems 2.36:}
+a. follow the definition:
+\begin{align}
+g(1) &= 1; \\
+g(n) - g(n-1) &= f(n). && \{n > 1\}
+\end{align}
+b. according to the definition, $f(g(k)) = n$ when $k \in (g(n-1), g(n)]$.
+\begin{align}
+g(g(n)) - g(g(n-1)) &= \sum_{i = 1}^g(n) f(i) - \sum_{i = 1}^{g(n-1)} f(i) \\
+		    &= \sum_{i} f(i)[g(n-1) < i \le g(n)] \\
+		    &= n f(n).
+\end{align}
+c. 
+\begin{align}
+g(g(g(n))) - g(g(g(n-1))) &= \sum_{k=1}^{g(n)} kf(k) - \sum_{k=1}^{g(n-1)} kf(k) \\
+			  &= \sum_k kf(k)[g(n-1) < k \le g(n)] \\
+			  &= n \sum_{k = g(n-1) + 1}^{g(n)}k.
+\end{align}
 
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Research problem 2.37:}
+It seems that a book named "Research Problems in Discrete Geometry" discussed this problem in chapter 3.
+However I cannot got a copy of the book.
 \end{document}
