@@ -321,30 +321,339 @@ Example 2, let $d = gcd(m,n)$:
 
 \subsection{Exercises}
 \textbf{Warmups 3.1:}
+Let
+\begin{align}
+n = 2^m + l. && \{0 \le l < 2^m\}
+\end{align}
+Then:
+\begin{align}
+m &= \ceil{\lg{(n+1)}}; \\
+l &= n - 2^{\ceil{\lg{(n+1)}}}.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Warmups 3.2:}
+\begin{align}
+round_{down}(x) = \floor{x + 0.5}; \\
+round_{up}(x) = \ceil{x - 0.5}.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Warmups 3.3:}
+\begin{align}
+\floor*{\frac{\floor{m\alpha}n}{\alpha}} = \floor*{\frac{m\alpha n - \{m\alpha\}n}{\alpha}} = mn - \ceil*{\frac{\{m\alpha\}n}{\alpha}} = mn - 1.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Warmups 3.4:}
+Pass.
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Warmups 3.5:}
+\begin{align}
+\floor{n\floor{x} + n\{x\}} = n\floor{x} \iff \floor{n\{x\}} = 0 \iff 0 \le n\{x\} < 1 \iff \{x\} < \frac{1}{n}.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Warmups 3.6:}
+\begin{align}
+\floor{f(\ceil{x})} = A &\iff A \le f(\ceil{x}) < A + 1 \\
+			&\iff  f^{-1}(A) \ge \ceil{x} > f^{-1}(A+1) \\
+			&\iff f^{-1}(A) \ge x > f^{-1}(A+1) \\
+			&\iff \floor{f(\ceil{x})} = \floor{f(x)}.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Warmups 3.7:}
+\begin{align}
+X_n &= n; && \{0 \le n < m\}\\
+X_n &= X_{n-m} + 1. && \{n \ge m\}&& 
+\end{align}
+Solution:
+\begin{align}
+X_n = \floor*{\frac{n}{m}} + n \text{ mod } m.
+\end{align}
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Warmups 3.8:}
+If $m$ boxes contains $ < \ceil{n/m}$ elements:
+\begin{align}
+n \le m (\ceil{n/m} - 1) \iff n/m + 1 \le \ceil{n/m}.
+\end{align}
+If $m$ boxes contains $ > \floor{n/m}$ elements:
+\begin{align}
+n \ge m (\floor{n/m} + 1) \iff n/m - 1 \ge \floor{n/m}.
+\end{align}
+These two statements contradict function 9 and 11.
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Warmups 3.9:}
+Because
+\begin{align}
+\frac{m}{n} - \frac{1}{q} = \frac{m \ceil{\frac{n}{m}}-n}{nq} = \frac{n \text{ mumble } m}{nq}.
+\end{align}
+Then $n \text{ mumble } m$ is smaller than $m$ and $nq$ is larger than q.
+This means 1) it is possible to splite a fractional number into a number series;
+2) The number series $1/x_1,1/x_2,...$ has distinct numbers;
+3) This is a finite number series.
 
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.10:}
+\begin{align}
+\ceil*{\frac{2x + 1}{2}} - \ceil*{\frac{2x + 1}{4}} + \floor*{\frac{2x + 1}{4}} = \ceil{x + 0.5} - [x \neq 2k-0.5]. && \{k \text{ is a integer}\}
+\end{align}
+This means:
+\begin{align}
+\ceil*{\frac{2x + 1}{2}} - \ceil*{\frac{2x + 1}{4}} + \floor*{\frac{2x + 1}{4}} &= \ceil{x}; && \{x = 2k-0.5 \text{ or } \{x\}>0.5\} \\
+										&= \floor{x}. && \{\text{else}\}
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.11:}
+\begin{align}
+\alpha < n < \beta \iff \floor{\alpha} < n < \ceil{\beta}.
+\end{align}
+The number of possible n is
+\begin{align}
+(\ceil{\beta} - \floor{\alpha} - 1)[\ceil{\beta} > \floor{\alpha}].
+\end{align}
+If $\alpha = \beta = \text{integer}$ then $\ceil{\beta} = \floor{\alpha}$, this reults a wrong answer.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.12:}
+Prove
+\begin{align}
+\ceil*{\frac{n}{m}} = \floor*{\frac{n+m-1}{m}} &\iff \ceil*{\frac{km + n\text{ mod } m}{m}} = \floor*{\frac{km + n\text{ mod } m +m-1}{m}} \\
+					       &\iff k + \ceil*{\frac{n\text{ mod } m}{m}} = k + 1 + \floor*{\frac{ n\text{ mod } m -1}{m}} \\
+\end{align}
+If $n \text{ mod } m = 0$
+\begin{align}
+\ceil*{\frac{n}{m}} = \floor*{\frac{n+m-1}{m}} \iff k = k + 1 - 1.
+\end{align}
+Else
+\begin{align}
+\ceil*{\frac{n}{m}} = \floor*{\frac{n+m-1}{m}} \iff k + 1 = k + 1 - 0.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.13:}
+Because
+\begin{align}
+N(\alpha,n) + N(\beta,n) &= N(\frac{\beta}{\beta-1},n) + N(\beta,n) \\
+			 &= n+1 + \ceil*{\frac{n+1}{\beta}} - \floor*{\frac{n+1}{\beta}} - 2 \\
+			 &= n.
+\end{align}
+And it is easy to prove that if $\alpha \neq \beta$ then $Spec(\alpha) \neq Spec(\beta)$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.14:}
+\begin{align}
+(x \text{ mod } ny) \text{ mod } y &= x - \floor*{\frac{x}{ny}}ny - \floor*{\frac{x - \floor*{\frac{x}{ny}}ny }{y}}y \\
+				   &= x - y(\floor*{\frac{x}{ny}}n - \floor*{\frac{x}{y} + \floor*{\frac{x}{ny}}n}) \\
+				   &= x - \floor*{\frac{x}{y}}y = x \text{ mod } y.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.15:}
+\begin{align}
+\ceil{mx} = \ceil*{x} + \ceil*{x - \frac{1}{m}} +  ... + \ceil*{x - \frac{m - 1}{m}}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.16:}
+Prove
+\begin{align}
+n \text{ mod } 2 = (1 - (-1)^n)/2.
+\end{align}
+It is true in both even and odd cases.\\
+Solve
+\begin{align}
+n \text{ mod } 3 = a + bw^n + cw^{2n}. && \{w = (-1 + i\sqrt{3})/2\}
+\end{align}
+Try $n = 0,1,2$:
+\begin{align}
+a + b + c &= 0; \\
+a + bw + cw^2 &= a + bw + c(-1-w) = 1; \\
+a + bw^2 + cw^4 &= a + b(-1-w) + cw = 2.
+\end{align}
+Solution is $a = 1$, $b =(-1-w)/(1+2w) = (w-1)/3$, $c = -1-b = -(w+2)/3$.\\
+To prove this is easy, because $w^3 = 1$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.17:}
+\begin{align}
+\sum_j \sum_k &[0 \le k < m][1 \le j \le x + k/m] \\
+	&= \sum_j \sum_k [0 \le k < m][1 \le j \le \ceil{x}][j \le x + k/m] \\
+	&= \sum_j \sum_k [0 \le k < m][1 \le j \le \ceil{x}][ k \ge m(j-x)] \\
+	&= \sum_{1 \le j \le \ceil{x}} \sum_k [0 \le k < m] - \sum_{j=\ceil{x}} \sum_k [0 \le k < m(j-x)] \\
+	&= m\ceil{x} - \ceil{m(\ceil{x}-x)} \\
+	&= \floor{mx}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Basics 3.18:}
+pass.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.19:}
+To let $f(x) = \floor{log_b (x)} = \floor{log_b (\floor{x})}$:
+\begin{align}
+f(x) = \text{integer} \implies x = \text{integer}.
+\end{align}
+Then $b$ should be an integer.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.20:}
+\begin{align}
+\sum_k [\alpha \le kx \le \beta] xk &= x\sum_k [\alpha/x \le k \le \beta/x] k \\
+				    &= x\sum_k [\ceil{\alpha/x} \le k \le \floor{\beta/x}] k \\
+				    &= \frac{1}{2}x(\floor{\beta/x}\floor{\beta/x} + \floor{\beta/x} - \ceil{\alpha/x}\ceil{\alpha/x} + \ceil{\alpha/x}).
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.21:}
+Small cases $1, 16, 128, 1024, ...$ show that for a number which has $k$ digits in decimal notation, there always exactly one number $2^m$ has leading 1.
+This is true because for any number $n$:
+\begin{align}
+log_{10} (n) < \floor{log_{10}(n)+1} \iff 2n < n + 10^{\floor{log_{10}(n)+1}}.
+\end{align}
+Then solution is $\floor{M log_{10}2} + 1$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.22:}
+\begin{align}
+S_n = \sum_{k \ge 1} \floor*{\frac{n}{2^k} + \frac{1}{2}}.
+\end{align}
+Small cases show that $S_n = n$.
+Let $n = m_k 2^k + d$
+\begin{align}
+\floor*{\frac{n}{2^k} + \frac{1}{2}} &\neq \floor*{\frac{n-1}{2^k} + \frac{1}{2}} \iff \\
+				     &m_k + \floor*{\frac{d}{2^k} + \frac{1}{2}} \neq m_k + \floor*{\frac{d-1}{2^k} + \frac{1}{2}} \iff \\
+				     &d = 2^{k-1}.
+\end{align}
+Consider $S_n$ and $S_{n-1}$, there always one and only one k to make $n \text{ mod } (2^k) = 2^{k-1}$.
+Let $n = 2^{k'} q$ where $q$ is a odd, here $k'$ is the one.
+Then $S_n = S_{n-1} + 1 = n$.
+
+\begin{align}
+T_n = \sum_{k \ge 1} 2^k \floor*{\frac{n}{2^k} + \frac{1}{2}}^2.
+\end{align}
+From the observation above, let $n = 2^{k'} q$ where $q$ is a odd.
+The different terms between $T_n$ and $T_{n-1}$ is $\floor*{\frac{2^{k'} q}{2^{k'+1}} + \frac{1}{2}}$ and $\floor*{\frac{2^{k'} q-1}{2^{k'+1}} + \frac{1}{2}}$.
+Then:
+
+\begin{align}
+T_n - T_{n-1} &= 2^{k'+1}(\floor*{\frac{2^{k'} q}{2^{k'+1}} + \frac{1}{2}}^2 - \floor*{\frac{2^{k'} q-1}{2^{k'+1}} + \frac{1}{2}}^2) \\
+	      &= 2^{k'+1}(\floor*{\frac{q}{2} + \frac{1}{2}}^2 - \floor*{\frac{q}{2} - \frac{1}{2^{k'+1}} + \frac{1}{2}}^2) \\
+	      &= 2^{k'+1}(\floor*{\frac{q}{2} + \frac{1}{2}}^2 - \floor*{\frac{q}{2}}^2)\\
+	      &= 2^{k'+1}(\floor*{\frac{q}{2} + \frac{1}{2}} - \floor*{\frac{q}{2}})(\floor*{\frac{q}{2} + \frac{1}{2}} + \floor*{\frac{q}{2}})\\
+	      &= 2^{k'+1}q = 2n.
+\end{align}
+Then $T_n = n(n+1)$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.23:}
+The nth elements should be $X_n = m$
+\begin{align}
+\frac{1}{2}m(m-1) &< n \le \frac{1}{2}m(m+1) \iff  \\
+		  &m(m-1) < 2n \le m(m+1) \iff  \\
+		  &m(m-1) + \frac{1}{4} < 2n < m(m+1) + \frac{1}{4} \iff \\
+		  &m - \frac{1}{2} < \sqrt{2n} < m + \frac{1}{2} \\
+		  &m < \sqrt{2n} + \frac{1}{2} \\
+		  &m = \floor*{\sqrt{2n} + \frac{1}{2}}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.24:}
+$Spec(\alpha/(\alpha + 1)) = Spec(\alpha) + n + 1$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.25:}
+Can prove $K_n > n$ with induction.\\
+The initial cases are true:
+\begin{align}
+K_0 &= 1; \\
+K_1 &= 3.
+\end{align}
+Assume that $K_i > i$ when $i\le n$, then:
+\begin{align}
+K_{n+1} &= 1 + min(2K_{\floor{n/2}}, 3K_{\floor{n/3}}) \\
+	&\ge 1 + min(2(\floor{n/2}+1),3(\floor{n/3}+1)) \\
+	&\ge 1 + min(n+1, n+1) \\
+	&> n+1.
+\end{align}
+Proved.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.26:}
+For the left side:
+\begin{align}
+D_n^{(q)} &= \ceil*{\frac{q}{q-1} D_{n-1}^{(q)}} \iff\\
+	  & \frac{q}{q-1} D_{n-1}^{(q)} \le D_n^{(q)} \\
+	  & (\frac{q}{q-1})^n D_{0}^{(q)} \le D_n^{(q)} \\
+	  & (\frac{q}{q-1})^n  \le D_n^{(q)} \
+\end{align}
+For the right side, can prove with induction:
+\begin{align}
+D_n^{(q)} \le q(\frac{q}{q-1})^n - q + 1. &&\{\text{this is wired but can be guessed from the initial case.}\}
+\end{align}
+The initial case is true:
+\begin{align}
+D_0^{(q)}  = 1 \ge q - q + 1.
+\end{align}
+Assume that it is true when $i \le n$, then:
+\begin{align}
+D_{n+1}^{(q)} &= \ceil*{\frac{q}{q-1} D_{n-1}^{(q)}} \\
+	      &\le \ceil*{q(\frac{q}{q-1})^{n+1} - q} \\
+	      &\le q(\frac{q}{q-1})^{n+1} - q + 1.
+\end{align}
+Proved.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.27:}
+Let $D_n^{(3)} = 2^m b - a$ where $a = 0\text{ or }1$ and $b$ is odd, then:
+\begin{align}
+D_{n+1}^{(3)} &= \ceil*{\frac{3}{2} (2^m b - a)} = 3 * 2^{m-1} b - \floor*{\frac{3}{2}a} = 3 * 2^{m-1} b  - a; \\
+D_{m+n}^{(3)} &= 3^m b - a.
+\end{align}
+This formula shows another way to generate the next number in the $D_n^{(3)}$.
+This way does not generate the next number one by one which means the formula only generates a subset.\\
+Let the seed number is $D_0^{(3)} = 2^1 - 1 = 1$, then $a=1$.
+The numbers generated from the seed contians infinite numbers and these numbers are arranged in the order: odd, even, odd, even, ...
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.28:}
+Not solved yet.\\
+From an initial number $a_n = m^2$, all numbers can be generated:
+\begin{align}
+a_{n + 2k + 1} &= (m+k)^2 + m - k; && \{0 \le k \le m \} \\
+a_{n + 2k + 2} &= (m+k)^2 + 2m; && \{0 \le k \le m \} \\
+a_{n + 2m + 1} &= 4m^2.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.29:}
+pass.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.30:}
+Small cases show that 
+\begin{align}
+X_n = \alpha^{2^n} + \alpha^{-2^n}.
+\end{align}
+It is easy to prove this with the induction.\\
+$\alpha^{-2^n} < 1$ because $\alpha > 1$ which means the integer $X_n$ should be $\ceil*{\alpha^{2^n}}$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.31:}
+A really smart solution:
+\begin{align}
+\floor{x} + \floor{y} + \floor{x + y} &= \floor{x + \floor{y}} + \floor{x + y} \\
+				      &\le \floor*{x + \frac{1}{2}\floor{2y}} + \floor*{x + \frac{1}{2}\floor{2y} + \frac{1}{2}} \\
+				      &= \floor*{2x + \floor{2y}} = \floor{2x} + \floor{2y}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Homework exercises 3.32:}
 
 \end{document}
