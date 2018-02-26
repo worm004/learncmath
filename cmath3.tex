@@ -73,10 +73,8 @@ Integers can be easily removed or added in the two functions:
 \end{align}
 For important rules:
 \begin{align}
-\floor{x} = n &\iff n \le x < n+1;\\
-\floor{x} = n &\iff x-1 < n \le x;\\
-\ceil{x} = n &\iff n-1 < x \le n;\\
-\ceil{x} = n &\iff x \le n < x + 1.
+\floor{x} = n &\iff x-1 < n \le x < n+1;\\
+\ceil{x} = n &\iff n-1 < x \le n < x + 1.
 \end{align}
 There are many situations in which floor and ceiling brackets are redundant:
 \begin{align}
@@ -630,6 +628,7 @@ a_{n + 2k + 1} &= (m+k)^2 + m - k; && \{0 \le k \le m \} \\
 a_{n + 2k + 2} &= (m+k)^2 + 2m; && \{0 \le k \le m \} \\
 a_{n + 2m + 1} &= 4m^2.
 \end{align}
+Then $a_{n + 2m + 1}$ is the next initial number.
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Homework exercises 3.29:}
@@ -655,5 +654,154 @@ A really smart solution:
 
 \noindent\rule{\textwidth}{0.4pt}
 \textbf{Homework exercises 3.32:}
+\begin{align}
+f(x) = \sum_k 2^k ||\frac{x}{2^k}||^2. && \{||x|| = \min{x - \floor{x},\ceil{x}-x}\}
+\end{align}
+Firstly, consider some basic rules.\\
+$f(x) = f(-x)$ because $||x|| = ||-x||$.
+Also:
+\begin{align}
+f(2x) = \sum_k 2^k ||\frac{2x}{2^k}||^2 = 2\sum_k 2^{k-1} ||\frac{x}{2^{k-1}}||^2 = 2f(x).
+\end{align}
+Secondly, consider $x$ in $0 \le x < 1$.\\
+Let $f(x) = l(x) + r(x)$, where $l(x)$ is the sum when $k\le0$ and $r(x)$ is the sum when $k > 0$.
+\begin{align}
+l(x+1) = \sum_{k \le 0} 2^k ||\frac{x+1}{2^k}||^2 = \sum_{k \le 0} 2^k ||\frac{x}{2^k} + 2^{-k}||^2 = \sum_{k \le 0} 2^k ||\frac{x}{2^k}||^2 = l(x).
+\end{align}
+Because $||x|| \le 0.5$ then:
+\begin{align}
+l(x) \le \sum_{k \le 0} 2^k (\frac{1}{2})^2 = \frac{1}{2}.
+\end{align}
+Then $r(x+1) = r(x) + 1$ because:
+\begin{align}
+r(x) &= \frac{x^2}{2} + \frac{x^2}{4} + \frac{x^2}{8} + ... = x^2. \\
+r(x+1) &= 2||\frac{x+1}{2}||^2 + \frac{x^2}{4} + \frac{x^2}{8} + ... \\
+       &= \frac{(x-1)^2}{2} + \frac{(x+1)^2}{4} + \frac{(x+1)^2}{8} + ... \\
+       &= \frac{(x-1)^2}{2} + \frac{(x+1)^2}{2} = x^2 + 1.
+\end{align}
+Then $f(x+1) = l(x+1) + r(x+1) = l(x) + r(x)+1 = f(x)+ 1$ when $0\le x < 1$.
+It also shows that $f(x+n) = f(x) + n$ and $f(0) = 0$ means $f(n) = n$.
+Finally small cases show that $f(x) = |x|$, try to prove that when $0 \le x < 1$:
+\begin{align}
+f(x) &= 2^{-m}f(2^mx) \\
+     &= 2^{-m} (f(\floor{2^mx} + \{2^mx\}) \\
+     &= 2^{-m}\floor{2^mx} + 2^{-m}f(\{2^mx\}). &&\{m \text{ is any integer}\}
+\end{align}
+Because 
+\begin{align}
+f(\{2^mx\}) = l(\{2^mx\}) + r(\{2^mx\}) = l(\{2^mx\}) + (\{2^mx\})^2 \le 0.5 + 1 = 1.5.
+\end{align}
+Then 
+\begin{align}
+|f(x) - x| &= |2^{-m}\floor{2^mx} + 2^{-m}f(\{2^mx\}) - x| \\
+	   &= |2^{-m}\floor{2^mx} - x| + 2^{-m}f(\{2^mx\})  \\
+	   &\le |2^{-m}\floor{2^mx} - x| + 2^{-m}\frac{3}{2}  \\
+	   &= |2^{-m}(\floor{2^mx} - 2^mx)| + 2^{-m}\frac{3}{2}  \\
+	   &\le 2^{-m} \frac{5}{2}.
+\end{align}
+Because $m$ could be any integer, then there is $|f(x) - x| = 0$ which means $f(x) = |x|$ when $0\le x < 1$.
+In summary, because $f(x) = f(-x)$ and $f(x) +n = f(x+n)$, then $f(x) = |x|$ for all real $x$. 
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.33:}
+a.Split the area into for parts, and consider the top right square.
+Because $r$ is a fractional number, corners are not crossed.
+The circle edge could be treated as a path go from the top to the right.
+Because no left or up steps, then the step number is $r + r = 2r = 2n-1$.
+Then the number of cells of the board contain a segment of the circle is $4(2n-1) = 8n-4$. \\
+b.This is the Guass's Circle Problem, and I have no idea why:
+\begin{align}
+f(n,k) = \floor{\sqrt{r^2 - k^2}}.
+\end{align}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.34:}
+a.Small cases $0,1,2,2,3,3,3,3,4,4,4,4,4,4,4,4,5, ...$ show that it is a good idea to estimate $f(n)$ when n reached the last number in its level.
+Let $m = \ceil{\lg{n}}$, and there will be $2^m$ numbers if the last level is full.
+\begin{align}
+f(n) + (2^m - n)m &= \sum_{k=1}^{2^m} \ceil{\lg{k}} \\
+		  &= \sum_{j,k} j[j = \ceil{\lg{k}}][1 \le k \le 2^m] \\
+		  &= \sum_{j,k} j[2^{j-1} < k \le 2^j][1 \le j \le m] \\
+		  &= \sum_{1 \le j \le m} j2^{j-1} = m2^m - 2^m + 1.
+\end{align}
+Then $f(n) = mn + 2^m - 1$.\\
+b.When $n = 2k$:
+\begin{align}
+f(k) &= \ceil{\lg{k}}k + 2^{\ceil{\lg{k}}} - 1;\\
+f(2k) &= \ceil{\lg{2k}}2k + 2^{\ceil{\lg{2k}}} - 1 \\
+      &= \ceil{\lg{k}+1}2k + 2^{\ceil{\lg{k}+1}} - 1 \\
+      &= 2\ceil{\lg{k}}k + 2k + 2*2^{\ceil{\lg{k}}} - 1;\\
+f(2k) &= 2f(k) + 2k - 1;\\
+f(n)  &= n - 1 + f(\ceil{n/2}) + f(\floor{n/2}).
+\end{align}
+When $k = 2^m + 1$ and $n = 2k -1$.
+Then $m = \ceil{\lg{k-1}}$ and $m + 1 = \ceil{\lg{k}}$:
+\begin{align}
+f(\floor*{\frac{2k-1}{2}}) &= f(k-1) = m(k-1)-2^m +1;\\
+f(\ceil*{\frac{2k-1}{2}}) &= f(k) = (m+1)k-2*2^m +1;\\
+f(2k-1) &= 2mk-m+4k-4*2^m-1.
+\end{align}
+Then 
+\begin{align}
+f(2k-1) = f(\floor*{\frac{2k-1}{2}}) + f(\ceil*{\frac{2k-1}{2}}) + 2k-1 -1.
+\end{align}
+When $k \neq 2^m + 1$ and $n = 2k -1$.
+Then $m = \ceil{\lg{k-1}} = \ceil{\lg{k}}$:
+\begin{align}
+f(\floor*{\frac{2k-1}{2}}) &= m(k-1)-2^m + 1;\\
+f(\ceil*{\frac{2k-1}{2}}) &= mk - 2^m + 1;\\
+f(2k-1) &= 2mk-m+2k-2*2^m.
+\end{align}
+Then 
+\begin{align}
+f(2k-1) = f(\floor*{\frac{2k-1}{2}}) + f(\ceil*{\frac{2k-1}{2}}) + 2k-1 -1.
+\end{align}
+Proved.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.35:}
+\begin{align}
+\floor{(n+1)^2 n! e} &= \floor*{(n+1)^2 n! \sum_{k=0}^{\infty}\frac{1}{k!} } \\
+		     &= \floor*{(\frac{n!}{0!} + \frac{n!}{1!} + ... + \frac{n!}{n!} + \frac{n!}{(n+1)!} + ... + \frac{n!}{\infty!})(n+1)^2}\\
+		     &= \floor*{(n+1)^2 n ((n-1)! + ... + 1) + (n+1)^2 + (n+1) + \frac{n+1}{n+2} + ... + \frac{n!(n+1)^2}{\infty!}} \\
+\end{align}
+Add the mod operator:
+\begin{align}
+\floor{(n+1)^2 n! e} \text{ mod } n &= \floor*{(n+1)^2 + (n+1) + \frac{n+1}{n+2} + ... + \frac{n!(n+1)^2}{\infty!}} \text{ mod } n \\
+				    &= \floor*{2 + \frac{n+1}{n+2} + ... + \frac{n!(n+1)^2}{\infty!}} \text{ mod } n
+\end{align}
+Because 
+\begin{align}
+\frac{n+1}{n+2} + ... + \frac{n!(n+1)^2}{\infty!} &= \frac{n+1}{n+2}(1 + \frac{1}{n+3} + \frac{1}{(n+3)(n+4)} + ... ) \\
+						  &< \frac{n+1}{n+2}(1 + \frac{1}{n+3} + \frac{1}{(n+3)(n+3)} + ...) \\
+						  &= \frac{(n+1)(n+3)}{(n+2)^2} < 1
+\end{align}
+Then result is $2 \text{ mod } n$.
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.36:}
+\begin{align}
+\sum_{1 < k < 2^{2^n}}{\frac{1}{2^{\floor{\lg k}}4^{\floor{\lg \lg k}}}} &= \sum_{k,l,m} 2^{-l} 4^{-m} [m = \floor{\lg l}][l = \floor{\lg k}][1 < k < 2^{2^n}] \\
+									 &= \sum_{k,l,m} 2^{-l} 4^{-m} [2^m \le l < 2^{m+1}][2^l \le k < 2^{l+1}][0 \le m < n] \\
+									 &= \sum_{l,m} 4^{-m}[2^m \le l < 2^{m+1}][0 \le m < n] \\
+									 &= \sum_{m} 2^{-m}[0 \le m < n] \\
+									 &= 1 + \frac{1}{2} + ... + \frac{1}{2^{n-1}} = 2(1 - 2^{-n}).
+\end{align}
+
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.36:}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.37:}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.38:}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.39:}
+
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Exam problems 3.40:}
 
 \end{document}
